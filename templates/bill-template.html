@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Bill</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .company-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .bill-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .bill-details {
+            width: 48%;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .total {
+            text-align: right;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        .footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="company-name">{{bill.company.companyName}}</div>
+    </div>
+    
+    <div class="bill-info">
+        <div class="bill-details">
+            <p><strong>Bill ID:</strong> {{bill.billId}}</p>
+            <p><strong>Date:</strong> {{billDate}}</p>
+            <p><strong>Time:</strong> {{billTime}}</p>
+        </div>
+        {{#if bill.customer}}
+        <div class="bill-details">
+            <p><strong>Customer:</strong> {{bill.customer.customerName}}</p>
+            <p><strong>Mobile:</strong> {{bill.customer.customerMobile}}</p>
+        </div>
+        {{/if}}
+    </div>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Code</th>
+                <th>Quantity</th>
+                <th>Unit Price</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each bill.items}}
+            <tr>
+                <td>{{this.product.productName}}</td>
+                <td>{{this.product.productCode}}</td>
+                <td>{{this.quantity}} {{this.product.uom}}</td>
+                <td>₹{{this.unitPrice}}</td>
+                <td>₹{{this.totalPrice}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    
+    <div class="total">
+        <p>Grand Total: ₹{{bill.totalAmount}}</p>
+    </div>
+    
+    <div class="footer">
+        <p>Thank you for your business!</p>
+    </div>
+</body>
+</html>
+
